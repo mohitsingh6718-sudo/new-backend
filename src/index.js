@@ -1,13 +1,34 @@
 // require("dotenv").config({ path: "./env" });
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
-
+import express from "express";
+const app = express();
 dotenv.config({ path: ".env" });
-connectDB();
-console.log("Program started");
-console.log(process.env.PORT);
-console.log(process.env.MONGODB_URI);
+connectDB()
+  //   .then(() => {
+  //     app.listen(process.env.PORT || 5000, () => {
+  //       console.log(`Server is runing at port: ${process.env.PORT}`);
+  //     });
+  //   })
+  //   .catch((errr) => {
+  //     console.log("MONGO dv connection failed !!!!!!", errr);
+  //   })
+  .then(() => {
+    console.log("MongoDB Connected Successfully");
 
+    app.on("error", (error) => {
+      console.log("Express Error:", error);
+      throw error;
+    });
+
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`Server is running at port: ${process.env.PORT || 5000}`);
+    });
+  })
+  .catch((error) => {
+    console.log("MongoDB connection failed:", error);
+    throw error;
+  });
 /*
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -38,3 +59,6 @@ dotenv.config({
   }
 })();
 */
+console.log("Program started");
+console.log(process.env.PORT);
+console.log(process.env.MONGODB_URI);
