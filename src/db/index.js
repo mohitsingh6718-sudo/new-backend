@@ -16,3 +16,9 @@ const connectDB = async () => {
 };
 
 export default connectDB;
+// Mongoose ki help se hum:
+
+// Database connect karte hain.
+// Schema banate hain.
+// Model banate hain.
+// CRUD operations karte hain.
